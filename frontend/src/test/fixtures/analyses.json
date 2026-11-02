@@ -1,0 +1,18 @@
+[
+ {
+  "id": "e3df4d15-94e2-42b9-a1a0-97810d6ac023",
+  "dataset_id": "d7876d76-dc95-46be-999a-f4c4b41723ce",
+  "dataset_name": "rich.csv",
+  "kind": "recommendations",
+  "title": "Recommendations - rich.csv",
+  "headline": "900 complaints; top priority: Fraud or scam (High)",
+  "filters": {
+   "issues": [],
+   "date_to": null,
+   "products": [],
+   "date_from": null,
+   "sentiments": []
+  },
+  "created_at": "2026-11-01T04:58:20.591437Z"
+ }
+]

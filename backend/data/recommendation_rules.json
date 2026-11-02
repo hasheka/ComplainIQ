@@ -1,0 +1,1347 @@
+{
+  "schema_version": 1,
+  "rules_version": "1.0",
+  "label": "Recommendation for investigation - not a confirmed root cause",
+  "disclaimer": "These are suggestions about where to look and what to measure. Complaint frequency alone does not prove why a problem occurs. Rules were written as general guidance and should be reviewed by someone who knows your business.",
+  "priority_config": {
+    "volume": {
+      "max_points": 40,
+      "min_count": 30,
+      "bands": [
+        {
+          "min_share_pct": 5,
+          "points": 40
+        },
+        {
+          "min_share_pct": 2,
+          "points": 30
+        },
+        {
+          "min_share_pct": 1,
+          "points": 20
+        },
+        {
+          "min_share_pct": 0.5,
+          "points": 10
+        }
+      ]
+    },
+    "trend": {
+      "max_points": 35,
+      "meaningful_rise_points": 35,
+      "any_rise_points": 10
+    },
+    "sentiment": {
+      "max_points": 25,
+      "min_analysed": 100,
+      "bands": [
+        {
+          "min_pp_above_overall": 15,
+          "points": 25
+        },
+        {
+          "min_pp_above_overall": 5,
+          "points": 15
+        },
+        {
+          "min_pp_above_overall": 0,
+          "points": 5
+        }
+      ]
+    },
+    "tiers": [
+      {
+        "name": "High",
+        "min_score": 60
+      },
+      {
+        "name": "Medium",
+        "min_score": 30
+      },
+      {
+        "name": "Low",
+        "min_score": 0
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "credit-report-accuracy",
+      "title": "Credit report data accuracy",
+      "match": {
+        "issues": [
+          "Incorrect information on credit report",
+          "Incorrect information on your report"
+        ],
+        "issue_patterns": [
+          "(?i)incorrect information.*report"
+        ]
+      },
+      "context": "Consumers say information on their credit report is wrong, for example accounts or balances that are not theirs or are out of date. Complaints usually concern credit reporting companies and the businesses that supply data to them.",
+      "recommended_actions": [
+        "Audit a random sample of disputed records to separate errors in the source data from errors made when records are matched to the right person.",
+        "Look for repeat errors tied to the same data suppliers and agree corrections at the source.",
+        "Review the rules used to match records to consumers, especially for mixed or merged files.",
+        "Confirm what a consumer is told after a dispute, and when."
+      ],
+      "reason": "Wrong-information complaints can come from bad source data, faulty record matching, or slow corrections. An audit shows which applies before any fix is chosen.",
+      "priority_criteria": "Raise priority if the issue's share is rising meaningfully, or if complaints cluster in one sub-issue such as 'Information is not mine'.",
+      "evidence_and_assumptions": [
+        "Complaint counts show how often people complained, not how often reports are actually wrong.",
+        "Assumes the sub-issue field is filled in reliably; it is blank for many records."
+      ],
+      "follow_up_metrics": [
+        "Share of disputed records corrected after investigation",
+        "Repeat complaints per consumer",
+        "Median days to resolve a dispute"
+      ]
+    },
+    {
+      "id": "credit-report-investigation",
+      "title": "Handling of credit report disputes",
+      "match": {
+        "issues": [
+          "Credit reporting company's investigation",
+          "Problem with a credit reporting company's investigation into an existing problem",
+          "Problem with a company's investigation into an existing issue"
+        ],
+        "issue_patterns": [
+          "(?i)investigation"
+        ]
+      },
+      "context": "Consumers who disputed an item say the investigation was inadequate, slow, or did not change the result.",
+      "recommended_actions": [
+        "Review a sample of closed disputes to check that the consumer's evidence was actually considered.",
+        "Measure how many disputes are closed with no change and re-opened by the same consumer.",
+        "Check response times against internal targets and look for bottlenecks in the workflow.",
+        "Make sure the outcome letter explains the result and next steps in plain language."
+      ],
+      "reason": "Repeated complaints after a dispute suggest the dispute process itself may not be resolving the underlying problem; a case review tests this.",
+      "priority_criteria": "Raise priority if the issue is rising meaningfully or if negative sentiment is well above the dataset average.",
+      "evidence_and_assumptions": [
+        "Assumes consumers who complain about the investigation had first filed a dispute.",
+        "Sentiment is a rough text-based estimate."
+      ],
+      "follow_up_metrics": [
+        "Re-dispute rate",
+        "Share of disputes with a documented review of consumer evidence",
+        "Days from dispute to outcome letter"
+      ]
+    },
+    {
+      "id": "credit-report-access",
+      "title": "Access to credit reports and scores",
+      "match": {
+        "issues": [
+          "Unable to get credit report/credit score",
+          "Unable to get your credit report or credit score"
+        ],
+        "issue_patterns": [
+          "(?i)unable to get.*credit report"
+        ]
+      },
+      "context": "Consumers report being unable to obtain their credit report or score, or being charged for them.",
+      "recommended_actions": [
+        "Test the request journey end to end (website, phone, mail) and note where requests fail or stall.",
+        "Review identity-verification steps that may be rejecting legitimate requests.",
+        "Check that fee and free-access information is clear at the point of request."
+      ],
+      "reason": "Access complaints often point to friction in identity checks or unclear offers, both of which can be reproduced by testing the journey.",
+      "priority_criteria": "Raise priority if complaints rise sharply or concentrate on a single channel.",
+      "evidence_and_assumptions": [
+        "Assumes complaints refer to the consumer's own report request."
+      ],
+      "follow_up_metrics": [
+        "Request completion rate",
+        "Identity-verification failure rate",
+        "Complaints per 10,000 requests, if request volumes are available"
+      ]
+    },
+    {
+      "id": "credit-report-misuse",
+      "title": "Use of credit reports",
+      "match": {
+        "issues": [
+          "Improper use of my credit report",
+          "Improper use of your report"
+        ],
+        "issue_patterns": [
+          "(?i)improper use of (my|your) (credit )?report"
+        ]
+      },
+      "context": "Consumers say someone accessed or used their credit report without a valid reason.",
+      "recommended_actions": [
+        "Audit how access reasons are recorded and checked before a report is released.",
+        "Review customer-facing explanations of who may view a report and why.",
+        "Sample complaints to see whether they concern permission to access, or reporting that followed access."
+      ],
+      "reason": "Without a record of why a report was pulled, neither the business nor the consumer can show that access was justified.",
+      "priority_criteria": "Raise priority if complaints rise or if many name the same requesting parties.",
+      "evidence_and_assumptions": [
+        "The category mixes several kinds of concern; a sample read is needed to split them."
+      ],
+      "follow_up_metrics": [
+        "Share of report pulls with a documented permitted purpose",
+        "Complaints per 10,000 report pulls, if available"
+      ]
+    },
+    {
+      "id": "lender-credit-reporting",
+      "title": "How lenders report accounts to credit bureaus",
+      "match": {
+        "issues": [
+          "Credit reporting"
+        ],
+        "issue_patterns": []
+      },
+      "context": "Customers of lenders and card issuers raise concerns about how their account was reported to the credit bureaus, such as wrong status, wrong balances, or reporting that continued after a dispute.",
+      "recommended_actions": [
+        "Compare a sample of reported account details with the lender's own records.",
+        "Review how disputes received through the bureaus are answered and how quickly corrections are sent back.",
+        "Check how account-status changes (paid, closed, in dispute) reach the reporting system."
+      ],
+      "reason": "Errors in what a lender sends to the bureaus can be found by comparing the data sent with internal records.",
+      "priority_criteria": "Raise priority if rising meaningfully or if complaints mention disputes that were not corrected.",
+      "evidence_and_assumptions": [
+        "The issue name is broad; sub-issues, where present, show the detail.",
+        "Assumes the complaint concerns the lender's reports rather than the bureau's handling."
+      ],
+      "follow_up_metrics": [
+        "Share of sampled reports that match internal records",
+        "Days to send a correction after a confirmed dispute"
+      ]
+    },
+    {
+      "id": "identity-protection-products",
+      "title": "Credit monitoring and identity protection services",
+      "match": {
+        "issues": [
+          "Credit monitoring or identity protection",
+          "Credit monitoring or identity theft protection services",
+          "Identity theft protection or other monitoring services",
+          "Problem with fraud alerts or security freezes"
+        ],
+        "issue_patterns": [
+          "(?i)(credit monitoring|identity (theft )?protection|fraud alert|security freeze)"
+        ]
+      },
+      "context": "Complaints about paid or free monitoring services, and about placing or lifting fraud alerts and freezes.",
+      "recommended_actions": [
+        "Review sales and enrolment scripts for clarity about cost, cancellation and what the service does not cover.",
+        "Check that freezes and alerts are placed and lifted within the promised time.",
+        "Look at cancellation and refund handling for subscription products."
+      ],
+      "reason": "Complaints about add-on services often come from expectations set at sale not matching what is delivered; reviewing the sale and cancellation steps tests this.",
+      "priority_criteria": "Raise priority if complaints mention billing or cancellation, or the share is rising.",
+      "evidence_and_assumptions": [
+        "Assumes most complaints are about paid services; some may be about free tools."
+      ],
+      "follow_up_metrics": [
+        "Cancellation-related complaints per 1,000 subscribers",
+        "Time to place or lift a freeze"
+      ]
+    },
+    {
+      "id": "mortgage-modification-foreclosure",
+      "title": "Mortgage hardship, modification and foreclosure",
+      "match": {
+        "issues": [
+          "Loan modification,collection,foreclosure",
+          "Struggling to pay mortgage"
+        ],
+        "issue_patterns": [
+          "(?i)foreclos",
+          "(?i)loan modification"
+        ]
+      },
+      "context": "Borrowers who are behind or at risk of falling behind report problems getting a modification, being contacted about collection, or facing foreclosure.",
+      "recommended_actions": [
+        "Map the modification process from first request to decision and measure where applications wait or are lost.",
+        "Check that borrowers receive consistent information from different staff and that documents are not repeatedly requested.",
+        "Review how foreclosure timelines are coordinated with modification reviews.",
+        "Track outcomes by servicer or team to see whether problems are concentrated."
+      ],
+      "reason": "A very large complaint share tells us where customers hurt most, but not why. Process mapping and case review are the way to find the reasons.",
+      "priority_criteria": "Raise priority if the share is rising meaningfully, or if one servicer or sub-issue dominates.",
+      "evidence_and_assumptions": [
+        "This issue was by far the most common in the 2011-2017 data; a falling share can still mean a large absolute volume.",
+        "Complaint volume reflects the economic environment as well as service quality."
+      ],
+      "follow_up_metrics": [
+        "Median days from modification request to decision",
+        "Share of applications needing repeat document requests",
+        "Repeat complaints per borrower"
+      ]
+    },
+    {
+      "id": "mortgage-servicing-escrow",
+      "title": "Mortgage servicing, payments and escrow",
+      "match": {
+        "issues": [
+          "Loan servicing, payments, escrow account",
+          "Trouble during payment process"
+        ],
+        "issue_patterns": [
+          "(?i)escrow",
+          "(?i)loan servicing"
+        ]
+      },
+      "context": "Borrowers report problems with payment processing, escrow accounts, statements or servicing transfers.",
+      "recommended_actions": [
+        "Audit a sample of payment postings and escrow calculations against source records.",
+        "Review the handover process when servicing is transferred between companies.",
+        "Check that escrow changes are explained before they affect the payment amount."
+      ],
+      "reason": "Payment and escrow complaints are checkable against records, so an audit can show whether errors exist and where they start.",
+      "priority_criteria": "Raise priority if the share is rising meaningfully or complaints cluster after servicing transfers.",
+      "evidence_and_assumptions": [
+        "Assumes the sub-issue field identifies the type of payment problem; it is often blank."
+      ],
+      "follow_up_metrics": [
+        "Payment posting error rate in audited samples",
+        "Escrow-related complaints per 10,000 loans, if available",
+        "Days to correct a posting error"
+      ]
+    },
+    {
+      "id": "mortgage-application-underwriting",
+      "title": "Mortgage application and underwriting",
+      "match": {
+        "issues": [
+          "Application, originator, mortgage broker",
+          "Credit decision / Underwriting",
+          "Applying for a mortgage or refinancing an existing mortgage",
+          "Applying for a mortgage"
+        ],
+        "issue_patterns": [
+          "(?i)(mortgage broker|underwriting|applying for a mortgage)"
+        ]
+      },
+      "context": "Applicants report problems with the application process, broker conduct, or decisions on their application.",
+      "recommended_actions": [
+        "Review the application timeline and the number of times applicants are asked for the same documents.",
+        "Check that decision reasons are communicated clearly.",
+        "Compare complaint rates across brokers or channels to see whether problems are concentrated."
+      ],
+      "reason": "Origination complaints often arise from communication gaps between applicant, broker and lender; reviewing timelines and requests shows where.",
+      "priority_criteria": "Raise priority if complaints concentrate in a few channels or rise meaningfully.",
+      "evidence_and_assumptions": [
+        "Without application volumes, complaint counts cannot be turned into rates."
+      ],
+      "follow_up_metrics": [
+        "Days from application to decision",
+        "Share of applications with repeat document requests",
+        "Complaints per 1,000 applications, if available"
+      ]
+    },
+    {
+      "id": "mortgage-closing-costs",
+      "title": "Mortgage closing and settlement costs",
+      "match": {
+        "issues": [
+          "Settlement process and costs",
+          "Closing on a mortgage"
+        ],
+        "issue_patterns": [
+          "(?i)settlement process",
+          "(?i)closing on a mortgage"
+        ]
+      },
+      "context": "Borrowers report unexpected costs, delays or confusion at closing.",
+      "recommended_actions": [
+        "Compare estimated and final closing costs on a sample of loans and list the line items that change most.",
+        "Review when and how estimates are shared with borrowers.",
+        "Check how late changes at closing are explained."
+      ],
+      "reason": "Differences between estimates and final costs are measurable and show whether disclosure timing or accuracy is the problem.",
+      "priority_criteria": "Raise priority if complaints rise or mention specific fee types.",
+      "evidence_and_assumptions": [
+        "Assumes complaints refer to the closing stage rather than ongoing servicing costs."
+      ],
+      "follow_up_metrics": [
+        "Share of loans where final costs exceed estimate",
+        "Days between final disclosure and closing"
+      ]
+    },
+    {
+      "id": "debt-not-owed",
+      "title": "Collection attempts on debts the consumer disputes",
+      "match": {
+        "issues": [
+          "Cont'd attempts collect debt not owed",
+          "Attempts to collect debt not owed",
+          "Collection debt dispute"
+        ],
+        "issue_patterns": [
+          "(?i)debt not owed",
+          "(?i)debt dispute"
+        ]
+      },
+      "context": "Consumers say they are being pursued for a debt that is not theirs, has been paid, or is the wrong amount.",
+      "recommended_actions": [
+        "Review how debt ownership and balances are checked before collection starts.",
+        "Check how disputes are logged and whether collection pauses while a dispute is open.",
+        "Audit a sample of accounts sold or transferred to confirm the paperwork and balances match."
+      ],
+      "reason": "Complaints of this type suggest records or hand-offs may be incorrect, which an audit of ownership and balance records can confirm or rule out.",
+      "priority_criteria": "Raise priority if rising meaningfully or if sub-issues such as 'Debt is not mine' or 'Debt was paid' dominate.",
+      "evidence_and_assumptions": [
+        "The sub-issue field is important here and is blank for many records.",
+        "A consumer's claim is not proof the debt is not owed."
+      ],
+      "follow_up_metrics": [
+        "Share of disputed accounts found to have wrong owner or amount",
+        "Collection activity after a dispute was logged",
+        "Days to resolve a dispute"
+      ]
+    },
+    {
+      "id": "debt-verification-notices",
+      "title": "Debt verification and written notices",
+      "match": {
+        "issues": [
+          "Disclosure verification of debt",
+          "Written notification about debt"
+        ],
+        "issue_patterns": [
+          "(?i)verification of debt",
+          "(?i)written notification"
+        ]
+      },
+      "context": "Consumers say they did not receive, or could not understand, information confirming the debt, or that required notices were missing.",
+      "recommended_actions": [
+        "Check that notices are sent on time and to the right address, using delivery records.",
+        "Test notice wording with readers who are not familiar with debt terms.",
+        "Review how verification requests are tracked and answered."
+      ],
+      "reason": "Notice problems can be traced through mailing and tracking records, which makes the cause easier to find than for most complaint types.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Assumes complaints concern notices rather than the debt itself."
+      ],
+      "follow_up_metrics": [
+        "Share of notices with confirmed delivery",
+        "Days to answer a verification request"
+      ]
+    },
+    {
+      "id": "debt-contact-communication",
+      "title": "Debt collector contact and communication",
+      "match": {
+        "issues": [
+          "Communication tactics",
+          "Improper contact or sharing of info",
+          "Threatened to contact someone or share information improperly"
+        ],
+        "issue_patterns": [
+          "(?i)communication tactics",
+          "(?i)improper contact"
+        ]
+      },
+      "context": "Consumers report frequent calls, contact at inconvenient times or places, or sharing of their information with third parties.",
+      "recommended_actions": [
+        "Review call frequency and timing rules and check that systems actually enforce them.",
+        "Check that consumer requests to stop or limit contact are recorded and respected.",
+        "Review training and call monitoring for how staff talk to third parties."
+      ],
+      "reason": "Contact complaints can be tested against call logs, which show whether policies are followed in practice.",
+      "priority_criteria": "Raise priority if rising meaningfully or if negative sentiment is far above average.",
+      "evidence_and_assumptions": [
+        "Assumes call and contact logs are available for review.",
+        "Consumers' descriptions of frequency were not verified."
+      ],
+      "follow_up_metrics": [
+        "Calls per account per week against policy",
+        "Share of do-not-contact requests honoured",
+        "Complaints per 1,000 accounts in collection, if available"
+      ]
+    },
+    {
+      "id": "debt-false-statements-threats",
+      "title": "Debt collection statements and threatened actions",
+      "match": {
+        "issues": [
+          "False statements or representation",
+          "Taking/threatening an illegal action",
+          "Took or threatened to take negative or legal action"
+        ],
+        "issue_patterns": [
+          "(?i)false statements",
+          "(?i)threaten"
+        ]
+      },
+      "context": "Consumers say collectors made misleading statements or threatened actions they could not or did not intend to take.",
+      "recommended_actions": [
+        "Review call scripts and letters for statements that could mislead.",
+        "Sample call recordings for threats of action that are not backed by a real plan or right.",
+        "Involve the compliance team in reviewing the findings."
+      ],
+      "reason": "Statements made to consumers can be sampled and compared with company policy, which shows whether the problem is scripts, training or individual conduct.",
+      "priority_criteria": "Raise priority if rising meaningfully or if negative sentiment is much higher than average.",
+      "evidence_and_assumptions": [
+        "This is a record of consumer claims, not a finding of wrongdoing.",
+        "Whether an action was legally permitted is a question for compliance or legal staff."
+      ],
+      "follow_up_metrics": [
+        "Share of sampled calls with a flagged statement",
+        "Complaints per 1,000 accounts in collection, if available"
+      ]
+    },
+    {
+      "id": "delinquent-and-collected-accounts",
+      "title": "Delinquent, sold and bankrupt accounts",
+      "match": {
+        "issues": [
+          "Delinquent account",
+          "Collection practices",
+          "Sale of account",
+          "Bankruptcy",
+          "Problem with a lender or other company charging your account"
+        ],
+        "issue_patterns": [
+          "(?i)delinquent",
+          "(?i)sale of account"
+        ]
+      },
+      "context": "Consumers report problems after falling behind on an account, including being contacted after bankruptcy or after an account was sold.",
+      "recommended_actions": [
+        "Check that account status is updated promptly after bankruptcy filings or account sales.",
+        "Review the hand-off of account data when accounts are sold.",
+        "Check that collection stops where it should."
+      ],
+      "reason": "Account-status complaints often come from delays in updating records, which can be found by comparing event dates with update dates.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "The category is small and mixed; a sample read is needed."
+      ],
+      "follow_up_metrics": [
+        "Days from status-change event to system update",
+        "Collection activity after a bankruptcy flag"
+      ]
+    },
+    {
+      "id": "account-opening-closing-management",
+      "title": "Account opening, closing and management",
+      "match": {
+        "issues": [
+          "Account opening, closing, or management",
+          "Managing, opening, or closing account",
+          "Managing an account",
+          "Closing an account",
+          "Opening an account",
+          "Closing/Cancelling account",
+          "Closing your account",
+          "Managing, opening, or closing your mobile wallet account",
+          "Problem getting a card or closing an account"
+        ],
+        "issue_patterns": [
+          "(?i)(opening|closing|cancelling|managing).*(account|wallet)"
+        ]
+      },
+      "context": "Customers report problems opening, closing or managing deposit, card or prepaid accounts, including unexpected closures and holds.",
+      "recommended_actions": [
+        "Review reasons given when accounts are closed or restricted and check they are explained to customers.",
+        "Test the closing process and the time to return remaining funds.",
+        "Look for common triggers of account restrictions."
+      ],
+      "reason": "Account closure and management complaints often involve unclear reasons or slow fund returns; both can be checked from account records.",
+      "priority_criteria": "Raise priority if rising meaningfully or if complaints mention held funds.",
+      "evidence_and_assumptions": [
+        "The category covers several products; use the product breakdown to see where it concentrates."
+      ],
+      "follow_up_metrics": [
+        "Days to return funds after closure",
+        "Share of closures with a clear reason given to the customer"
+      ]
+    },
+    {
+      "id": "deposits-withdrawals-payments",
+      "title": "Deposits, withdrawals and payments",
+      "match": {
+        "issues": [
+          "Deposits and withdrawals",
+          "Making/receiving payments, sending money",
+          "Money was not available when promised",
+          "Adding money"
+        ],
+        "issue_patterns": [
+          "(?i)deposits? and withdrawals",
+          "(?i)money was not available"
+        ]
+      },
+      "context": "Customers report holds on deposits, delays or errors in withdrawals, and payments that did not arrive when expected.",
+      "recommended_actions": [
+        "Review deposit-hold rules and how holds are explained to customers.",
+        "Trace a sample of delayed payments through each step to find where time is lost.",
+        "Check that availability dates shown to customers match actual availability."
+      ],
+      "reason": "Delays and holds follow set rules and timestamps, so the cause of a delay can usually be traced from system records.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Assumes complaints are about the company's processing rather than third-party delays."
+      ],
+      "follow_up_metrics": [
+        "Share of deposits made available by the promised date",
+        "Median days for payments to complete"
+      ]
+    },
+    {
+      "id": "overdraft-low-funds",
+      "title": "Overdraft and low-balance problems",
+      "match": {
+        "issues": [
+          "Problems caused by my funds being low",
+          "Problem caused by your funds being low",
+          "Overdraft, savings or rewards features",
+          "Overdraft, savings, or rewards features",
+          "Problem with overdraft"
+        ],
+        "issue_patterns": [
+          "(?i)funds being low",
+          "(?i)overdraft"
+        ]
+      },
+      "context": "Customers report overdraft or insufficient-funds charges they did not expect, or other problems when their balance was low.",
+      "recommended_actions": [
+        "Review how and when customers are warned before a charge occurs.",
+        "Check the order in which transactions are processed and how this affects the number of fees.",
+        "Check that opt-in or opt-out choices are recorded and honoured."
+      ],
+      "reason": "Low-balance complaints often relate to timing and processing order, which can be examined using transaction data.",
+      "priority_criteria": "Raise priority if rising meaningfully or if fee amounts are frequently mentioned.",
+      "evidence_and_assumptions": [
+        "Assumes fees are the main concern; sub-issue data is needed to confirm."
+      ],
+      "follow_up_metrics": [
+        "Overdraft fees per active account",
+        "Share of overdrafts preceded by a customer alert"
+      ]
+    },
+    {
+      "id": "debit-card-use",
+      "title": "Debit and ATM card use",
+      "match": {
+        "issues": [
+          "Using a debit or ATM card",
+          "Trouble using your card",
+          "Trouble using the card"
+        ],
+        "issue_patterns": [
+          "(?i)debit or atm card",
+          "(?i)trouble using"
+        ]
+      },
+      "context": "Customers report declined cards, ATM problems, or errors when using a debit, ATM or prepaid card.",
+      "recommended_actions": [
+        "Review decline reasons and false-positive rates for fraud controls.",
+        "Check ATM and merchant error handling and refund times.",
+        "Check how replacement cards are issued and tracked."
+      ],
+      "reason": "Card-use failures can come from fraud controls, network problems or account holds; decline-code data shows which.",
+      "priority_criteria": "Raise priority if rising meaningfully or negative sentiment is high.",
+      "evidence_and_assumptions": [
+        "Assumes decline-reason data is available."
+      ],
+      "follow_up_metrics": [
+        "Share of declines later reversed as false alarms",
+        "Days to issue a replacement card"
+      ]
+    },
+    {
+      "id": "fraud-unauthorized",
+      "title": "Fraud, scams and unauthorized transactions",
+      "match": {
+        "issues": [
+          "Identity theft / Fraud / Embezzlement",
+          "Fraud or scam",
+          "Unauthorized transactions/trans. issues",
+          "Unauthorized transactions or other transaction problem",
+          "Received a loan I didn't apply for",
+          "Received a loan you didn't apply for"
+        ],
+        "issue_patterns": [
+          "(?i)(fraud|scam|unauthorized|identity theft)"
+        ]
+      },
+      "context": "Consumers report transactions or accounts they did not authorize, scams, or loans taken in their name.",
+      "recommended_actions": [
+        "Review how quickly suspicious activity is detected and the customer is told.",
+        "Examine how fraud claims are investigated and how consumers are informed of the outcome.",
+        "Check how many claims are repeats from the same consumer.",
+        "Consider customer-facing scam warnings where scam types are recurring."
+      ],
+      "reason": "Fraud complaints carry direct financial harm. Speed of detection and clarity of the claims process are measurable.",
+      "priority_criteria": "Treat as higher priority if rising meaningfully, whatever the volume, because each case can mean direct financial loss.",
+      "evidence_and_assumptions": [
+        "Complaints include both fraud against consumers and disputed transactions the consumer actually authorized."
+      ],
+      "follow_up_metrics": [
+        "Median days from claim to provisional credit or resolution",
+        "Share of claims upheld",
+        "Repeat-victim rate"
+      ]
+    },
+    {
+      "id": "transaction-errors",
+      "title": "Transaction and transfer errors",
+      "match": {
+        "issues": [
+          "Transaction issue",
+          "Other transaction issues",
+          "Other transaction problem",
+          "Wrong amount charged or received",
+          "Incorrect exchange rate",
+          "Problem with a purchase or transfer",
+          "Lost or stolen money order",
+          "Lost or stolen check",
+          "Problem when making payments"
+        ],
+        "issue_patterns": [
+          "(?i)transaction (issue|problem)",
+          "(?i)wrong amount"
+        ]
+      },
+      "context": "Consumers report transfers or payments that failed, went to the wrong place, or were for the wrong amount.",
+      "recommended_actions": [
+        "Trace a sample of failed or incorrect transfers through each step.",
+        "Check how errors are reported to the customer and how long refunds take.",
+        "Review how exchange rates and fees are shown before the customer confirms."
+      ],
+      "reason": "Transaction errors leave records, so the point at which each error entered can be found.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "The category mixes several transaction types; use product breakdown."
+      ],
+      "follow_up_metrics": [
+        "Error rate per 10,000 transactions, if volumes are available",
+        "Days to correct an error"
+      ]
+    },
+    {
+      "id": "lender-account-debits",
+      "title": "Lender charges to customers' bank accounts",
+      "match": {
+        "issues": [
+          "Can't stop charges to bank account",
+          "Charged bank acct wrong day or amt",
+          "Can't stop withdrawals from your bank account",
+          "Money was taken from your bank account on the wrong day or for the wrong amount"
+        ],
+        "issue_patterns": [
+          "(?i)bank acc(oun)?t.*(wrong|stop)",
+          "(?i)stop (charges|withdrawals)"
+        ]
+      },
+      "context": "Borrowers say a lender kept taking money from their bank account, or took the wrong amount or date.",
+      "recommended_actions": [
+        "Check that requests to stop automatic withdrawals are recorded and acted on in time.",
+        "Review how payment amounts and dates are set and checked before collection.",
+        "Check refund time when a wrong amount is taken."
+      ],
+      "reason": "Whether a stop request was honoured can be checked from the request log against withdrawal dates.",
+      "priority_criteria": "Raise priority if rising or if the same borrowers appear repeatedly.",
+      "evidence_and_assumptions": [
+        "Assumes the sub-issue field and company records are available."
+      ],
+      "follow_up_metrics": [
+        "Share of stop requests honoured before the next withdrawal",
+        "Days to refund an incorrect withdrawal"
+      ]
+    },
+    {
+      "id": "billing-disputes",
+      "title": "Billing disputes and statements",
+      "match": {
+        "issues": [
+          "Billing disputes",
+          "Billing statement",
+          "Problem with a purchase shown on your statement"
+        ],
+        "issue_patterns": [
+          "(?i)billing (dispute|statement)"
+        ]
+      },
+      "context": "Cardholders dispute charges, or find statements unclear or incorrect.",
+      "recommended_actions": [
+        "Review the dispute process steps and time limits, and check how outcomes are explained.",
+        "Check whether statements make charges, fees and due dates easy to find.",
+        "Look at repeated disputes with the same merchants."
+      ],
+      "reason": "Billing complaints can reflect a confusing statement or a slow dispute process; each is checkable.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Disputes may be justified or not; counts alone do not show which."
+      ],
+      "follow_up_metrics": [
+        "Days to resolve a dispute",
+        "Share of disputes escalated or re-opened"
+      ]
+    },
+    {
+      "id": "fees-unexpected",
+      "title": "Fees and unexpected charges",
+      "match": {
+        "issues": [
+          "Late fee",
+          "Other fee",
+          "Charged fees or interest I didn't expect",
+          "Charged fees or interest you didn't expect",
+          "Unexpected/Other fees",
+          "Unexpected or other fees",
+          "Excessive fees",
+          "Fees",
+          "Fees or interest",
+          "Balance transfer fee",
+          "Overlimit fee",
+          "Cash advance fee"
+        ],
+        "issue_patterns": [
+          "(?i)\\bfees?\\b"
+        ]
+      },
+      "context": "Customers say they were charged fees or interest they did not expect or understand.",
+      "recommended_actions": [
+        "Review how each fee is disclosed before it applies and compare to what customers say they were told.",
+        "Check billing records for repeated or duplicate charges.",
+        "Review reversal and refund handling for fees.",
+        "Look at whether fee-related complaints cluster in particular products."
+      ],
+      "reason": "Unexpected-fee complaints may come from unclear disclosures or billing errors; reading disclosures and checking records distinguishes them.",
+      "priority_criteria": "Raise priority if rising meaningfully or if the same fee type recurs.",
+      "evidence_and_assumptions": [
+        "Counts cannot show whether charges were correct under the agreement."
+      ],
+      "follow_up_metrics": [
+        "Fee-related complaints per 10,000 accounts, if available",
+        "Share of fee complaints resulting in a reversal"
+      ]
+    },
+    {
+      "id": "card-pricing-terms",
+      "title": "Interest rates, credit limits and account terms",
+      "match": {
+        "issues": [
+          "APR or interest rate",
+          "Balance transfer",
+          "Cash advance",
+          "Convenience checks",
+          "Credit line increase/decrease",
+          "Credit limit changed",
+          "Account terms and changes",
+          "Arbitration",
+          "Other features, terms, or problems"
+        ],
+        "issue_patterns": [
+          "(?i)(apr|interest rate|credit line|credit limit|account terms)"
+        ]
+      },
+      "context": "Customers report disagreements about interest rates, limit changes, or changes in account terms.",
+      "recommended_actions": [
+        "Check that rate and limit changes are notified in clear terms and in time.",
+        "Review how balance transfer and cash advance terms are explained.",
+        "Check that promotional rates end as customers were told."
+      ],
+      "reason": "Rate and term complaints can be tested by comparing customer notices with account records.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Assumes customers had the terms available; the complaint does not show whether they read them."
+      ],
+      "follow_up_metrics": [
+        "Share of rate changes with confirmed notice",
+        "Complaints per 10,000 accounts, if available"
+      ]
+    },
+    {
+      "id": "marketing-rewards-disclosures",
+      "title": "Marketing, rewards and product disclosures",
+      "match": {
+        "issues": [
+          "Advertising and marketing",
+          "Rewards",
+          "Advertising and marketing, including promotional offers",
+          "Advertising, marketing or disclosures",
+          "Advertising",
+          "Confusing or misleading advertising or marketing",
+          "Unsolicited issuance of credit card",
+          "Incorrect/missing disclosures or info",
+          "Confusing or missing disclosures",
+          "Disclosures"
+        ],
+        "issue_patterns": [
+          "(?i)(advertis|market|disclosure|rewards)"
+        ]
+      },
+      "context": "Customers say offers, rewards or product information did not match what they received, or that disclosures were confusing or missing.",
+      "recommended_actions": [
+        "Compare marketing wording and offer terms with what customers actually receive.",
+        "Check the rewards process for how points are earned, changed and redeemed.",
+        "Test disclosures with readers who do not work in finance."
+      ],
+      "reason": "Marketing and rewards complaints reflect gaps between promise and delivery, which can be checked by comparing the promise with customer records.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Assumes the complaint is about the company's own marketing and not a third party's."
+      ],
+      "follow_up_metrics": [
+        "Share of rewards claims fulfilled as described",
+        "Complaints per 10,000 accounts, if available"
+      ]
+    },
+    {
+      "id": "addon-protection-products",
+      "title": "Add-on and protection products",
+      "match": {
+        "issues": [
+          "Credit card protection / Debt protection",
+          "Problem with additional add-on products or services"
+        ],
+        "issue_patterns": [
+          "(?i)(add-on|debt protection|card protection)"
+        ]
+      },
+      "context": "Customers dispute add-on products, such as debt protection, that they did not know they had or could not cancel.",
+      "recommended_actions": [
+        "Review how add-ons are offered and whether customers clearly agree to them.",
+        "Test the cancellation and refund steps.",
+        "Check claim handling for protection products."
+      ],
+      "reason": "Add-on complaints often point to unclear consent or hard cancellation, both of which can be checked in enrolment records.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "The category is small and may mix several products."
+      ],
+      "follow_up_metrics": [
+        "Share of enrolments with recorded consent",
+        "Days to cancel and refund"
+      ]
+    },
+    {
+      "id": "loan-origination-access",
+      "title": "Getting a loan or credit and credit decisions",
+      "match": {
+        "issues": [
+          "Credit determination",
+          "Application processing delay",
+          "Getting a credit card",
+          "Getting a loan",
+          "Getting a loan or lease",
+          "Getting a line of credit",
+          "Getting the loan",
+          "Shopping for a loan or lease",
+          "Shopping for a line of credit",
+          "Taking out the loan or lease",
+          "Applied for loan/did not receive money",
+          "Was approved for a loan, but didn't receive money"
+        ],
+        "issue_patterns": [
+          "(?i)(getting a|shopping for|taking out|credit determination|application processing)"
+        ]
+      },
+      "context": "Applicants report problems getting or comparing credit, delays, unclear decisions, or approved funds that did not arrive.",
+      "recommended_actions": [
+        "Review the application timeline and where requests wait.",
+        "Check that decisions are explained and that applicants know what to do next.",
+        "Trace cases where an approved loan did not pay out."
+      ],
+      "reason": "Origination complaints are tied to specific steps that can be timed and traced.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Without application volumes, counts cannot become rates."
+      ],
+      "follow_up_metrics": [
+        "Days from application to decision",
+        "Share of approved loans paid out on time"
+      ]
+    },
+    {
+      "id": "loan-account-management-payoff",
+      "title": "Loan account management, payments and payoff",
+      "match": {
+        "issues": [
+          "Managing the loan or lease",
+          "Managing the line of credit",
+          "Payoff process",
+          "Problem with the payoff process at the end of the loan",
+          "Problems at the end of the loan or lease",
+          "Payment to acct not credited",
+          "Loan payment wasn't credited to your account"
+        ],
+        "issue_patterns": [
+          "(?i)managing the (loan|line)",
+          "(?i)payoff",
+          "(?i)not credited"
+        ]
+      },
+      "context": "Borrowers report problems with payments not credited, loan balances, payoff amounts, and closing out a loan.",
+      "recommended_actions": [
+        "Audit a sample of payments for posting delays or misapplied amounts.",
+        "Check payoff statements for accuracy and timeliness.",
+        "Review how liens or titles are released after payoff."
+      ],
+      "reason": "Payment posting and payoff figures can be audited against records.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Assumes records are available for audit."
+      ],
+      "follow_up_metrics": [
+        "Payment posting error rate",
+        "Days from payoff to lien or title release"
+      ]
+    },
+    {
+      "id": "repayment-hardship",
+      "title": "Repayment difficulty and hardship options",
+      "match": {
+        "issues": [
+          "Can't repay my loan",
+          "Problems when you are unable to pay",
+          "Struggling to repay your loan",
+          "Struggling to pay your loan",
+          "Struggling to pay your bill",
+          "Forbearance / Workout plans"
+        ],
+        "issue_patterns": [
+          "(?i)(can't repay|unable to pay|struggling to (pay|repay)|forbearance|workout)"
+        ]
+      },
+      "context": "Borrowers who are struggling to pay report difficulty finding or getting hardship options, or poor communication when they ask for help.",
+      "recommended_actions": [
+        "Review how easily borrowers can find and request hardship options.",
+        "Check consistency of advice given by different staff.",
+        "Check how long it takes to get a decision on a request."
+      ],
+      "reason": "Hardship complaints depend on how well help options are communicated and processed; both can be measured.",
+      "priority_criteria": "Raise priority if rising meaningfully, because it may signal customers in financial difficulty.",
+      "evidence_and_assumptions": [
+        "The rise may reflect economic conditions as well as service."
+      ],
+      "follow_up_metrics": [
+        "Share of hardship requests answered within target",
+        "Share of borrowers entering a plan who stay current"
+      ]
+    },
+    {
+      "id": "student-loan-servicer-dealings",
+      "title": "Dealing with student loan servicers",
+      "match": {
+        "issues": [
+          "Dealing with my lender or servicer",
+          "Dealing with your lender or servicer",
+          "Repaying your loan"
+        ],
+        "issue_patterns": [
+          "(?i)dealing with (my|your) lender or servicer",
+          "(?i)repaying your loan"
+        ]
+      },
+      "context": "Borrowers report poor service, confusing repayment information or errors in dealings with a loan servicer.",
+      "recommended_actions": [
+        "Sample contacts to find the most common questions that are not resolved on first contact.",
+        "Check how repayment plan information is communicated and when plan changes take effect.",
+        "Review how records are handled when servicing is transferred."
+      ],
+      "reason": "Servicer-dealing complaints can come from information gaps or process errors; reviewing contacts shows which.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "The rise in this issue may in part come from category renaming; check name variants."
+      ],
+      "follow_up_metrics": [
+        "First-contact resolution rate",
+        "Repeat contacts per borrower"
+      ]
+    },
+    {
+      "id": "vehicle-repossession",
+      "title": "Vehicle repossession and property handling",
+      "match": {
+        "issues": [
+          "Lender repossessed or sold the vehicle",
+          "Lender damaged or destroyed vehicle",
+          "Lender sold the property",
+          "Lender damaged or destroyed property",
+          "Vehicle was repossessed or sold the vehicle"
+        ],
+        "issue_patterns": [
+          "(?i)repossess",
+          "(?i)lender (damaged|sold)"
+        ]
+      },
+      "context": "Borrowers report repossession, sale or damage of vehicles or property by the lender.",
+      "recommended_actions": [
+        "Review repossession notices and how they are delivered.",
+        "Check how personal items and vehicle condition are documented.",
+        "Review how sale proceeds and any remaining balance are explained."
+      ],
+      "reason": "Documentation of notices, condition and sales shows whether the process was followed.",
+      "priority_criteria": "Raise priority if rising or if damage claims recur.",
+      "evidence_and_assumptions": [
+        "Counts are small."
+      ],
+      "follow_up_metrics": [
+        "Share of repossessions with confirmed notice",
+        "Damage claims per 100 repossessions"
+      ]
+    },
+    {
+      "id": "customer-service-contact",
+      "title": "Customer service and reaching the company",
+      "match": {
+        "issues": [
+          "Customer service / Customer relations",
+          "Customer service/Customer relations",
+          "Problem with customer service",
+          "Can't contact lender",
+          "Can't contact lender or servicer",
+          "Other service issues",
+          "Other service problem"
+        ],
+        "issue_patterns": [
+          "(?i)customer service",
+          "(?i)can't contact"
+        ]
+      },
+      "context": "Customers report difficulty reaching the company or poor service when they do.",
+      "recommended_actions": [
+        "Review call wait times, call drop rates and the availability of channels.",
+        "Check how many contacts are needed to resolve a problem.",
+        "Review training and escalation routes for complex cases."
+      ],
+      "reason": "Service complaints often reflect access and first-contact resolution, both measurable from contact-centre data.",
+      "priority_criteria": "Raise priority if rising meaningfully.",
+      "evidence_and_assumptions": [
+        "Complaints about service often sit alongside another issue; read in context."
+      ],
+      "follow_up_metrics": [
+        "Average wait time",
+        "First-contact resolution rate",
+        "Contacts per resolved case"
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "Privacy and handling of personal information",
+      "match": {
+        "issues": [
+          "Privacy"
+        ],
+        "issue_patterns": [
+          "(?i)privacy"
+        ]
+      },
+      "context": "Consumers raise concerns about how their personal information is stored, used or shared.",
+      "recommended_actions": [
+        "Review who has access to customer information and how access is logged.",
+        "Check how privacy notices are communicated.",
+        "Review how privacy complaints are routed and answered."
+      ],
+      "reason": "Privacy concerns are best investigated through access logs and policies.",
+      "priority_criteria": "Raise priority if rising or if complaints mention a possible data exposure.",
+      "evidence_and_assumptions": [
+        "Counts are small; a sample read may show the real concern."
+      ],
+      "follow_up_metrics": [
+        "Privacy complaints answered within target",
+        "Share of access events with a logged reason"
+      ]
+    },
+    {
+      "id": "uncategorized-other",
+      "title": "Uncategorised complaints ('Other')",
+      "match": {
+        "issues": [
+          "Other"
+        ],
+        "issue_patterns": []
+      },
+      "context": "Complaints filed under 'Other' do not fit a standard category, so their real topics are hidden.",
+      "recommended_actions": [
+        "Read a random sample to find recurring themes that need a new category.",
+        "Use text classification on narratives to suggest categories, then check them by hand.",
+        "Review the intake form to see whether the options are confusing."
+      ],
+      "reason": "A large 'Other' share hides real topics. Sampling and recategorising turns it into actionable issues.",
+      "priority_criteria": "Raise priority if its share is large or growing, since it hides what customers are complaining about.",
+      "evidence_and_assumptions": [
+        "Only complaints with narratives can be read; the rest cannot be recategorised."
+      ],
+      "follow_up_metrics": [
+        "Share of complaints in 'Other'",
+        "Share of sampled 'Other' complaints that fit an existing category"
+      ]
+    }
+  ],
+  "product_fallbacks": [
+    {
+      "id": "fb-mortgage",
+      "title": "General guidance: mortgage complaints",
+      "match_products": [
+        "(?i)mortgage"
+      ],
+      "context": "Complaints about mortgages not covered by a specific rule.",
+      "recommended_actions": [
+        "Sample the complaints to identify the process step involved.",
+        "Check hand-offs between origination, servicing and collections."
+      ],
+      "reason": "The step where complaints arise is the first thing to establish.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    },
+    {
+      "id": "fb-credit-reporting",
+      "title": "General guidance: credit reporting complaints",
+      "match_products": [
+        "(?i)credit report"
+      ],
+      "context": "Complaints about credit reporting not covered by a specific rule.",
+      "recommended_actions": [
+        "Sample the complaints to identify whether data accuracy, disputes or access is involved.",
+        "Check dispute handling times."
+      ],
+      "reason": "Separating accuracy, dispute and access problems points to the right process.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    },
+    {
+      "id": "fb-debt-collection",
+      "title": "General guidance: debt collection complaints",
+      "match_products": [
+        "(?i)debt collection"
+      ],
+      "context": "Complaints about debt collection not covered by a specific rule.",
+      "recommended_actions": [
+        "Sample call logs and letters against company policy.",
+        "Check how disputes are recorded."
+      ],
+      "reason": "Comparing practice with policy is the quickest way to find a gap.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    },
+    {
+      "id": "fb-cards",
+      "title": "General guidance: credit card and prepaid card complaints",
+      "match_products": [
+        "(?i)(credit card|prepaid)"
+      ],
+      "context": "Complaints about cards not covered by a specific rule.",
+      "recommended_actions": [
+        "Sample complaints to find whether billing, fees, fraud or service is involved.",
+        "Check statement clarity."
+      ],
+      "reason": "Card complaints usually involve billing, fees, fraud or service; sampling shows which.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    },
+    {
+      "id": "fb-accounts",
+      "title": "General guidance: bank account complaints",
+      "match_products": [
+        "(?i)(bank account|checking|savings)"
+      ],
+      "context": "Complaints about bank accounts not covered by a specific rule.",
+      "recommended_actions": [
+        "Sample complaints for account-management, funds-availability or fee problems.",
+        "Check how holds and closures are explained."
+      ],
+      "reason": "Account complaints often involve holds, fees or closures.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    },
+    {
+      "id": "fb-loans",
+      "title": "General guidance: loan complaints",
+      "match_products": [
+        "(?i)(loan|lease)"
+      ],
+      "context": "Complaints about loans not covered by a specific rule.",
+      "recommended_actions": [
+        "Sample complaints for origination, servicing or collection involvement.",
+        "Check payment posting."
+      ],
+      "reason": "Loan complaints usually come from origination, servicing or collection.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    },
+    {
+      "id": "fb-money-services",
+      "title": "General guidance: money transfer complaints",
+      "match_products": [
+        "(?i)(money transfer|virtual currency|money service)"
+      ],
+      "context": "Complaints about money transfers not covered by a specific rule.",
+      "recommended_actions": [
+        "Trace a sample of failed transfers.",
+        "Check fee and rate disclosure before sending."
+      ],
+      "reason": "Transfers leave a trail, so failures can be located.",
+      "priority_criteria": "Use the data-driven priority score; this guidance is general and applies when no issue-specific rule exists.",
+      "evidence_and_assumptions": [
+        "No issue-specific rule matched, so this guidance is general.",
+        "Read a sample of the complaints before acting."
+      ],
+      "follow_up_metrics": [
+        "Complaints per 10,000 accounts in this product, if available",
+        "Median days to resolve a complaint"
+      ]
+    }
+  ],
+  "generic_fallback": {
+    "id": "generic",
+    "title": "General guidance: unclassified complaint issue",
+    "context": "No specific rule exists for this issue, so only general guidance is given.",
+    "recommended_actions": [
+      "Read a random sample of the complaints to identify the process step involved.",
+      "Add a specific rule for this issue in recommendation_rules.json if it recurs."
+    ],
+    "reason": "Without a specific rule, sampling the complaints is the most reliable first step.",
+    "priority_criteria": "Use the data-driven priority score.",
+    "evidence_and_assumptions": [
+      "General guidance only; no domain assumptions have been made for this issue."
+    ],
+    "follow_up_metrics": [
+      "Complaint count over time",
+      "Median days to resolve"
+    ]
+  }
+}

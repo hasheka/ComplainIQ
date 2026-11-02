@@ -1,0 +1,6 @@
+{
+ "status": "insufficient_text",
+ "predicted_product": null,
+ "confidence": null,
+ "message": "The text has no words the model recognises. Please describe the problem in more detail."
+}

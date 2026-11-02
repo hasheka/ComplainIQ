@@ -1,0 +1,22 @@
+{
+ "status": "ok",
+ "predicted_product": "Debt collection",
+ "confidence": 0.9973,
+ "confidence_level": "high",
+ "top_predictions": [
+  {
+   "product": "Debt collection",
+   "probability": 0.9973
+  },
+  {
+   "product": "Payday loan",
+   "probability": 0.001
+  },
+  {
+   "product": "Credit reporting",
+   "probability": 0.0007
+  }
+ ],
+ "target": "Product",
+ "note": "Confidence is the model's raw probability and is not calibrated."
+}

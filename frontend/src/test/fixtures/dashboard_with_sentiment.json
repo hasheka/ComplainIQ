@@ -1,0 +1,283 @@
+{
+ "metrics": {
+  "total_complaints": 900,
+  "unique_products": 4,
+  "unique_issues": 4,
+  "date_min": "2014-01-06",
+  "date_max": "2016-12-31",
+  "rows_with_valid_date": 900,
+  "narratives_present": 683,
+  "narratives_missing": 217,
+  "narrative_pct": 75.89
+ },
+ "top_products": [
+  {
+   "name": "Credit reporting",
+   "count": 401,
+   "pct": 44.56
+  },
+  {
+   "name": "Mortgage",
+   "count": 208,
+   "pct": 23.11
+  },
+  {
+   "name": "Credit card",
+   "count": 173,
+   "pct": 19.22
+  },
+  {
+   "name": "Money transfers",
+   "count": 118,
+   "pct": 13.11
+  }
+ ],
+ "top_issues": [
+  {
+   "name": "Incorrect information on credit report",
+   "count": 401,
+   "pct": 44.56
+  },
+  {
+   "name": "Loan modification,collection,foreclosure",
+   "count": 208,
+   "pct": 23.11
+  },
+  {
+   "name": "Late fee",
+   "count": 173,
+   "pct": 19.22
+  },
+  {
+   "name": "Fraud or scam",
+   "count": 118,
+   "pct": 13.11
+  }
+ ],
+ "monthly": [
+  {
+   "month": "2014-01",
+   "count": 25,
+   "partial": true
+  },
+  {
+   "month": "2014-02",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-03",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-04",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-05",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-06",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-07",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-08",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-09",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-10",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-11",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2014-12",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-01",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-02",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-03",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-04",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-05",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-06",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-07",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-08",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-09",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-10",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-11",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2015-12",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-01",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-02",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-03",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-04",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-05",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-06",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-07",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-08",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-09",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-10",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-11",
+   "count": 25,
+   "partial": false
+  },
+  {
+   "month": "2016-12",
+   "count": 25,
+   "partial": false
+  }
+ ],
+ "yearly": [
+  {
+   "year": 2014,
+   "count": 300,
+   "months_covered": 12,
+   "partial": false
+  },
+  {
+   "year": 2015,
+   "count": 300,
+   "months_covered": 12,
+   "partial": false
+  },
+  {
+   "year": 2016,
+   "count": 300,
+   "months_covered": 12,
+   "partial": false
+  }
+ ],
+ "sentiment": {
+  "analysed": 683,
+  "no_text": 217,
+  "counts": {
+   "Negative": 198,
+   "Neutral": 0,
+   "Positive": 485
+  },
+  "pct": {
+   "Negative": 28.99,
+   "Neutral": 0.0,
+   "Positive": 71.01
+  },
+  "mean_compound": 0.1825,
+  "note": "Sentiment is estimated from the words in each narrative using VADER (compound score; Positive >= 0.05, Negative <= -0.05, otherwise Neutral). It is an approximation, not a measure of how the customer actually felt. Complaints without a narrative are excluded, not counted as neutral."
+ },
+ "sentiment_available": true,
+ "filters_applied": {
+  "date_from": null,
+  "date_to": null,
+  "products": [],
+  "issues": [],
+  "sentiments": []
+ }
+}

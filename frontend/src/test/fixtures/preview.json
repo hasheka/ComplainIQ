@@ -1,0 +1,34 @@
+{
+ "page": 1,
+ "page_size": 3,
+ "total_rows": 900,
+ "rows": [
+  {
+   "date": "2014-01-21",
+   "product": "Credit reporting",
+   "issue": "Incorrect information on credit report",
+   "sub_issue": null,
+   "narrative": "The credit bureau still shows incorrect information on my credit report after my dispute",
+   "complaint_id": "1",
+   "has_narrative": true
+  },
+  {
+   "date": "2014-01-11",
+   "product": "Mortgage",
+   "issue": "Loan modification,collection,foreclosure",
+   "sub_issue": null,
+   "narrative": "My mortgage servicer lost my escrow payment and the foreclosure notice came anyway",
+   "complaint_id": "2",
+   "has_narrative": true
+  },
+  {
+   "date": "2014-01-23",
+   "product": "Mortgage",
+   "issue": "Loan modification,collection,foreclosure",
+   "sub_issue": null,
+   "narrative": null,
+   "complaint_id": "3",
+   "has_narrative": false
+  }
+ ]
+}

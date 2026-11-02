@@ -1,0 +1,25 @@
+{
+ "total_unique": 4,
+ "items": [
+  {
+   "name": "Credit reporting",
+   "count": 401,
+   "pct": 44.56
+  },
+  {
+   "name": "Mortgage",
+   "count": 208,
+   "pct": 23.11
+  },
+  {
+   "name": "Credit card",
+   "count": 173,
+   "pct": 19.22
+  },
+  {
+   "name": "Money transfers",
+   "count": 118,
+   "pct": 13.11
+  }
+ ]
+}

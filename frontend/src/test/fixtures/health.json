@@ -1,0 +1,8 @@
+{
+ "status": "ok",
+ "database": "ok",
+ "model_files": {
+  "model": true,
+  "vectorizer": true
+ }
+}

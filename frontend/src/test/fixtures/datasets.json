@@ -1,0 +1,23 @@
+[
+ {
+  "id": "d7876d76-dc95-46be-999a-f4c4b41723ce",
+  "original_filename": "rich.csv",
+  "size_bytes": 131258,
+  "status": "ready",
+  "error": null,
+  "rows": 900,
+  "summary": {
+   "date_max": "2016-12-31",
+   "date_min": "2014-01-06",
+   "narrative_pct": 75.89,
+   "unique_issues": 4,
+   "unique_products": 4,
+   "total_complaints": 900,
+   "narratives_missing": 217,
+   "narratives_present": 683,
+   "rows_with_valid_date": 900
+  },
+  "created_at": "2026-11-01T04:58:17.464149Z",
+  "processed_at": "2026-11-01T04:58:17.590519Z"
+ }
+]

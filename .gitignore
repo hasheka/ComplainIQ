@@ -1,0 +1,38 @@
+# secrets
+.env
+*.pem
+# private data - never commit datasets or user uploads
+Consumer_Complaints.csv
+*.csv
+!models/model_evaluation_report.csv
+storage/
+uploads/
+*.parquet
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+# os / editor
+.DS_Store
+.idea/
+.vscode/
+
+# frontend
+frontend/node_modules/
+frontend/dist/
+tests/.test_db/
+*.db
+*.db-wal
+*.db-shm
+# Additional environment and local configuration protection
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+
+# Local documentation backup
+README_original_backup.md
+
+docs/original_training_notebook.ipynb

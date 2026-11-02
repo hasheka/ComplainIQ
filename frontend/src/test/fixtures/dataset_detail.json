@@ -1,0 +1,115 @@
+{
+ "id": "d7876d76-dc95-46be-999a-f4c4b41723ce",
+ "original_filename": "rich.csv",
+ "size_bytes": 131258,
+ "status": "ready",
+ "error": null,
+ "rows": 900,
+ "summary": {
+  "date_max": "2016-12-31",
+  "date_min": "2014-01-06",
+  "narrative_pct": 75.89,
+  "unique_issues": 4,
+  "unique_products": 4,
+  "total_complaints": 900,
+  "narratives_missing": 217,
+  "narratives_present": 683,
+  "rows_with_valid_date": 900
+ },
+ "created_at": "2026-11-01T04:58:17.464149Z",
+ "processed_at": "2026-11-01T04:58:17.590519Z",
+ "file_columns": [
+  "Date received",
+  "Product",
+  "Issue",
+  "Sub-issue",
+  "Consumer complaint narrative",
+  "Complaint ID"
+ ],
+ "mapping": {
+  "date": "Date received",
+  "issue": "Issue",
+  "product": "Product",
+  "narrative": "Consumer complaint narrative",
+  "sub_issue": "Sub-issue",
+  "complaint_id": "Complaint ID"
+ },
+ "cleaning_report": {
+  "notes": [
+   "46 rows are identical to another row apart from the ID; they were kept (different customers can file the same complaint)."
+  ],
+  "rows_in": 900,
+  "rows_out": 900,
+  "invalid_dates": 0,
+  "date_format_used": "%m/%d/%Y",
+  "missing_by_column": {
+   "date": 0,
+   "issue": 0,
+   "product": 0,
+   "narrative": 217,
+   "sub_issue": 836,
+   "complaint_id": 0
+  },
+  "narratives_missing": 217,
+  "narratives_present": 683,
+  "blank_text_to_missing": {},
+  "duplicate_ids_removed": 0,
+  "invalid_date_examples": [],
+  "exact_duplicate_rows_found": 46,
+  "exact_duplicate_rows_removed": 0
+ },
+ "profile": {
+  "rows": 900,
+  "columns": [
+   {
+    "column": "date",
+    "unique": 586,
+    "missing": 0,
+    "missing_pct": 0.0
+   },
+   {
+    "column": "product",
+    "unique": 4,
+    "missing": 0,
+    "missing_pct": 0.0
+   },
+   {
+    "column": "issue",
+    "unique": 4,
+    "missing": 0,
+    "missing_pct": 0.0
+   },
+   {
+    "column": "sub_issue",
+    "unique": 1,
+    "missing": 836,
+    "missing_pct": 92.89
+   },
+   {
+    "column": "narrative",
+    "unique": 7,
+    "missing": 217,
+    "missing_pct": 24.11
+   },
+   {
+    "column": "complaint_id",
+    "unique": 900,
+    "missing": 0,
+    "missing_pct": 0.0
+   }
+  ]
+ },
+ "required_fields": [
+  "date",
+  "product",
+  "issue"
+ ],
+ "optional_fields": [
+  "sub_product",
+  "sub_issue",
+  "narrative",
+  "company",
+  "state",
+  "complaint_id"
+ ]
+}

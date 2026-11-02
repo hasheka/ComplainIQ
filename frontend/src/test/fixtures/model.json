@@ -1,0 +1,132 @@
+{
+ "model_type": "LogisticRegression",
+ "target": "Product",
+ "classes": [
+  "Bank account or service",
+  "Consumer Loan",
+  "Credit card",
+  "Credit reporting",
+  "Debt collection",
+  "Money transfers",
+  "Mortgage",
+  "Other financial service",
+  "Payday loan",
+  "Prepaid card",
+  "Student loan",
+  "Virtual currency"
+ ],
+ "compatibility": {
+  "n_features": 3000,
+  "n_classes": 12,
+  "version_warnings": [
+   "Trying to unpickle estimator LogisticRegression from version 1.9.0 when using version 1.8.0.",
+   "Trying to unpickle estimator TfidfTransformer from version 1.9.0 when using version 1.8.0.",
+   "Trying to unpickle estimator TfidfVectorizer from version 1.9.0 when using version 1.8.0."
+  ],
+  "smoke_test_label": "Debt collection",
+  "preprocessing_matches_training": true
+ },
+ "evaluation": {
+  "available": true,
+  "accuracy": 0.8502,
+  "macro_f1": 0.642,
+  "test_size": 31573,
+  "per_class": [
+   {
+    "product": "Bank account or service",
+    "precision": 0.824,
+    "recall": 0.818,
+    "f1": 0.821,
+    "support": 2900
+   },
+   {
+    "product": "Consumer Loan",
+    "precision": 0.756,
+    "recall": 0.624,
+    "f1": 0.684,
+    "support": 1806
+   },
+   {
+    "product": "Credit card",
+    "precision": 0.812,
+    "recall": 0.826,
+    "f1": 0.819,
+    "support": 3655
+   },
+   {
+    "product": "Credit reporting",
+    "precision": 0.867,
+    "recall": 0.862,
+    "f1": 0.864,
+    "support": 6064
+   },
+   {
+    "product": "Debt collection",
+    "precision": 0.816,
+    "recall": 0.879,
+    "f1": 0.847,
+    "support": 7748
+   },
+   {
+    "product": "Money transfers",
+    "precision": 0.74,
+    "recall": 0.575,
+    "f1": 0.647,
+    "support": 287
+   },
+   {
+    "product": "Mortgage",
+    "precision": 0.924,
+    "recall": 0.947,
+    "f1": 0.935,
+    "support": 6400
+   },
+   {
+    "product": "Other financial service",
+    "precision": 1.0,
+    "recall": 0.018,
+    "f1": 0.036,
+    "support": 55
+   },
+   {
+    "product": "Payday loan",
+    "precision": 0.597,
+    "recall": 0.345,
+    "f1": 0.437,
+    "support": 339
+   },
+   {
+    "product": "Prepaid card",
+    "precision": 0.826,
+    "recall": 0.644,
+    "f1": 0.724,
+    "support": 281
+   },
+   {
+    "product": "Student loan",
+    "precision": 0.923,
+    "recall": 0.864,
+    "f1": 0.893,
+    "support": 2035
+   },
+   {
+    "product": "Virtual currency",
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 3
+   }
+  ],
+  "weak_classes": [
+   "Other financial service",
+   "Payday loan",
+   "Virtual currency"
+  ]
+ },
+ "training_notes": [
+  "Trained only on complaints that have a narrative (157,865 rows).",
+  "Evaluated on a stratified 20% hold-out split (random_state=42).",
+  "It predicts the Product category only; it does not predict the Issue.",
+  "Products introduced in CFPB's 2017 category renaming are not model classes."
+ ]
+}

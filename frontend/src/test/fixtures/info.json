@@ -1,0 +1,25 @@
+{
+ "app_name": "ComplainIQ",
+ "privacy": {
+  "storage": [
+   "Each upload is kept as two private files on the server: your original CSV and a cleaned copy.",
+   "Files are stored under random IDs in a folder only the server can read; other accounts cannot reach them.",
+   "Only summary numbers (counts, report text) are kept in the database, never the complaint texts."
+  ],
+  "processing": [
+   "Cleaning, sentiment and prediction run on the server; nothing is sent to outside AI services.",
+   "Sentiment uses the VADER word-list method. Predictions use the bundled scikit-learn model."
+  ],
+  "retention": [
+   "Your data stays until you delete a dataset or your account; deleting removes the database record and every stored file.",
+   "Failed or abandoned uploads are removed automatically."
+  ]
+ },
+ "limits": {
+  "max_upload_mb": 500,
+  "max_rows": 2000000,
+  "max_datasets_per_user": 20,
+  "session_days": 7
+ },
+ "sentiment_note": "Sentiment is estimated from the words in each narrative using VADER (compound score; Positive >= 0.05, Negative <= -0.05, otherwise Neutral). It is an approximation, not a measure of how the customer actually felt. Complaints without a narrative are excluded, not counted as neutral."
+}
