@@ -1,5 +1,5 @@
-﻿# CUSTOMER INSIGHT AI
-### AI-Powered Customer Complaint Root Cause Analysis System
+﻿# ComplainIQ
+###CUSTOMER COMPLAINT ANALYSIS AND ROOT CAUSE DETECTIONstem
 
 CUSTOMER INSIGHT AI is a web-based complaint intelligence platform developed as a final-year B.Sc. Artificial Intelligence and Machine Learning project at AMET University.
 
